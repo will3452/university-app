@@ -31,14 +31,14 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    Books
+                                    My Books
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a href="{{ route('author.bookcreate') }}" class="dropdown-item">
-                                        Write New
+                                        Create new
                                     </a>
-                                    <a href="{{ route('author.bookindex')}}" class="dropdown-item">
+                                    <a href="{{ route('author.bookindex') }}" class="dropdown-item">
                                         Browse List
                                     </a>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

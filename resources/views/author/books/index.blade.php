@@ -20,9 +20,9 @@
                 </form>
             </div>
                 <div class="mt-2">
-                    <a href="#" class="btn btn-primary btn-sm ">All</a>
-                    <a href="#" class="btn btn-outline-primary btn-sm ">Regular</a>
-                    <a href="#" class="btn btn-outline-primary btn-sm ">Premium</a>
+                    <a href="{{ route('author.bookindex') }}" class="btn  {{ !isset(request()->filter) ? 'btn-primary ':'btn-outline-primary ' }}btn-sm ">All</a>
+                    <a href="{{ route('author.bookindex',['filter'=>'regular']) }}" class="btn {{ isset(request()->filter) && request()->filter == 'regular' ? 'btn-primary ':'btn-outline-primary ' }} btn-sm ">Regular</a>
+                    <a href="{{ route('author.bookindex',['filter'=>'premium']) }}" class="btn {{ isset(request()->filter) && request()->filter == 'premium' ? 'btn-primary ':'btn-outline-primary ' }} btn-sm ">Premium</a>
                 </div>
             <!-- <hr> -->
             <!-- <br> -->
@@ -38,6 +38,9 @@
                             <div>
                                 <small>Title</small>
                                 <strong>{{ $book->title }}</strong>
+                                @if($book->is_premium == 'yes')
+                                    <div class="badge badge-warning">Premium</div>
+                                @endif
                             </div>
                             <div>
                                 <small>Category</small>
@@ -48,19 +51,19 @@
                                 <strong>{{ $book->language->name }}</strong>
                             </div>
                             <div>
-                                <a href="#" class="btn btn-success btn-sm">Show</a>
-                                <a href="#" class="btn btn-dark btn-sm">Update</a>
+                                <a href="{{ route('author.bookshow',$book->id) }}" class="btn btn-success btn-sm">Show Content</a>
+                                <a href="#" class="btn btn-dark btn-sm">Edit Details</a>
                             </div>
                         </div>
                     </div>
                 </div>
             @empty
                 <h4 class="text-center">
-                    No books available
+                    No books available, <small><a href="{{ route('author.bookcreate') }}">Create now?</a></small>
                 </h4>
             @endforelse
             <div class="mt-2">
-                {{ $books->links() }}
+                {{ isset(request()->filter) && request()->filter != '' ? $books->appends(['filter'=>request()->filter])->links():$books->links() }}
             </div>
         </div>
     </div>

@@ -11,6 +11,13 @@ class BookController extends Controller
     }
     public function index(){
         $books = auth()->user()->books()->latest()->paginate(3);
+        if(request()->filter){
+            if(request()->filter == 'regular'){
+                $books = auth()->user()->books()->regular()->latest()->paginate(3);
+            }else if(request()->filter == 'premium'){
+                $books = auth()->user()->books()->premium()->latest()->paginate(3);
+            }
+        }
         return view('author.books.index', compact('books'));
     }
 
@@ -28,7 +35,7 @@ class BookController extends Controller
             'lead_character_id'=>'required',
             'is_premium'=>'required',
             'title'=>'required',
-            'genre'=>'required',
+            'genre_id'=>'required',
             'blurb'=>'required',
             'cover'=>'required',
             'credit'=>'max:1000',
@@ -49,7 +56,7 @@ class BookController extends Controller
                 'lead_character_id'=>request()->lead_character_id,
                 'is_premium'=>request()->is_premium,
                 'title'=>request()->title,
-                'genre'=>request()->genre,
+                'genre_id'=>request()->genre_id,
                 'blurb'=>request()->blurb,
                 'cover'=>$newPath,
                 'credit'=>request()->credit,
@@ -60,5 +67,11 @@ class BookController extends Controller
 
         }
         return 'Error occured contact the developer';
+    }
+
+    public function show($id){
+        $book = auth()->user()->books()->findOrFail($id);
+        // return $book;
+        return view('author.books.show', compact('book'));
     }
 }

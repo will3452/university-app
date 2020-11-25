@@ -21,7 +21,8 @@ class DatabaseSeeder extends Seeder
             LeadCollegeSeeder::class,
             BookTypeSeeder::class,
             BookCategorySeeder::class,
-            langSeeder::class
+            langSeeder::class,
+            GenreSeeder::class,
         ]);
 
         User::create([

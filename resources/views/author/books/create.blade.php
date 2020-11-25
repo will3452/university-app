@@ -2,6 +2,11 @@
 
 @section('content')
 <div class="container">
+    <style>
+        #book_cost{
+            transition:all 500ms;
+        }
+    </style>
     <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
     <div class="row justify-content-center">
         <div class="col-md-12">
@@ -29,14 +34,20 @@
                                         <label for="">
                                             Premium
                                         </label>
-                                        <input type="radio" placeholder="Optional" name="is_premium" value="yes">
+                                        <input type="radio" placeholder="Optional" name="is_premium" value="yes" id="premium_ticker">
                                     </div>
                                     <div class="">
                                         <label for="">
                                             Regular
                                         </label>
-                                        <input type="radio" placeholder="Optional" checked name="is_premium" value="no">
+                                        <input type="radio" placeholder="Optional" checked name="is_premium" value="no" id="regular_ticker">
                                     </div>
+                                </div>
+                                <div class="form-group bg-primary text-white rounded p-1" id="book_cost">
+                                    <label for="">
+                                       Book Cost
+                                    </label>
+                                    <input type="text" placeholder="" value="0" name="cost" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label for="title">
@@ -61,7 +72,12 @@
                                     <label for="">
                                         Genre
                                     </label>
-                                    <input type="text" required placeholder="" name="genre" class="form-control">
+                                    <select name="genre_id" id="g" required class="form-control">
+                                        <option value="#" disabled selected>Choose Genre</option>
+                                        @foreach(\App\Models\Genre::all() as $g)
+                                            <option value="{{ $g->id }}">{{ $g->name }} </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="cat">
@@ -126,12 +142,7 @@
                                     </small>
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="">
-                                       Book Cost
-                                    </label>
-                                    <input type="text" placeholder="" name="cost" class="form-control">
-                                </div>
+                                
 
                                 <div class="form-group">
                                     <label for="">Credit page</label>
@@ -140,7 +151,7 @@
                             </div>
                         </div>
                         <button class="btn btn-primary btn-block">
-                            Create Book
+                            Create Book 
                         </button>
                    </form>
                 </div>
@@ -148,6 +159,19 @@
         </div>
     </div>
 </div>
+<script>
+    let book_cost = document.getElementById('book_cost');
+    let ticker = document.getElementById('premium_ticker');
+    let ticker1 = document.getElementById('regular_ticker');
+
+    book_cost.style.display = 'none';
+    ticker.onclick = function(){
+        book_cost.style.display = 'block';
+    }
+    ticker1.onclick = function(){
+        book_cost.style.display = 'none';
+    }
+</script>
 <script>
     CKEDITOR.replace('text1');
 </script>

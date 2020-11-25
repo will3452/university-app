@@ -18,7 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes();\
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -26,5 +26,6 @@ Route::prefix('author/books')->name('author.')->group(function(){
     Route::get('/',[BookController::class, 'index'])->name('bookindex');
     Route::post('/',[BookController::class, 'store'])->name('bookstore');
     Route::get('/create',[BookController::class, 'create'])->name('bookcreate');
+    Route::get('/{id}',[BookController::class, 'show'])->name('bookshow');
 
 });

@@ -22,9 +22,9 @@ class CreateBooksTable extends Migration
             $table->foreignId('lead_college_id');
             $table->foreignId('lead_character_id');
             $table->foreignId('language_id');
+            $table->foreignId('genre_id');
             $table->text('title');
             $table->text('cover');
-            $table->text('genre');
             $table->string('blurb')->default('3000');
             $table->string('cost')->nullable();
             $table->longText('credit');
